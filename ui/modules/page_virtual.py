@@ -258,11 +258,12 @@ class CommandListDialog(QDialog):
 
 
 # ============================================================================
-# 3. 模拟 Simulink 示波器 (GUI部分)
+# 3. 模拟 Simulink 示波器 (GUI部分) - 【修改点：默认颜色改为白色】
 # ============================================================================
 class SimulinkScope(QWidget):
-    def __init__(self, bg_color="#000000", line_color="#FFFF00", y_min=0, y_max=100,
-                 grid_color="#444444", text_color="#cccccc"):
+    # 修改默认值为白底黑字 (#FFFFFF, #000000) 和灰网格 (#AAAAAA)
+    def __init__(self, bg_color="#FFFFFF", line_color="#FFFF00", y_min=0, y_max=100,
+                 grid_color="#AAAAAA", text_color="#000000"):
         super().__init__()
         self.setMinimumHeight(250)
         self.bg_color = QColor(bg_color)
@@ -517,11 +518,13 @@ class SimulinkBridgeDialog(QDialog):
             "border: 1px solid #ddd; background: #fafafa; font-family: Consolas; font-size: 11px; color: black;")
         left_layout.addWidget(self.log_area)
 
+        # === 右侧示波器面板 ===
+        # 【修改点】：统一应用白底样式
         right_panel = QVBoxLayout()
         grid_layout = QGridLayout()
         grid_layout.setSpacing(10)
 
-        # 1. 温度示波器 (白底红线)
+        # 1. 温度示波器
         l_temp = QVBoxLayout()
         l_temp.addWidget(QLabel("1. 温度 (℃) ", styleSheet="font-weight:bold; color:#333"))
         self.scope_temp = SimulinkScope(bg_color="#FFFFFF", line_color="#FF0000",
@@ -533,21 +536,27 @@ class SimulinkBridgeDialog(QDialog):
         # 2. 角位置示波器
         l_pos = QVBoxLayout()
         l_pos.addWidget(QLabel("2. 角位置 (rad) ", styleSheet="font-weight:bold; color:#333"))
-        self.scope_pos = SimulinkScope(line_color="#4CAF50", y_min=0, y_max=1000)
+        # 显式传入白底参数
+        self.scope_pos = SimulinkScope(bg_color="#FFFFFF", line_color="#4CAF50", y_min=0, y_max=1000,
+                                       grid_color="#AAAAAA", text_color="#000000")
         l_pos.addWidget(self.scope_pos)
         grid_layout.addLayout(l_pos, 0, 1)
 
         # 3. 角速度示波器
         l_vel = QVBoxLayout()
         l_vel.addWidget(QLabel("3. 角速度 (rad/s)", styleSheet="font-weight:bold; color:#333"))
-        self.scope_vel = SimulinkScope(line_color="#2196F3", y_min=0, y_max=50)
+        # 显式传入白底参数
+        self.scope_vel = SimulinkScope(bg_color="#FFFFFF", line_color="#2196F3", y_min=0, y_max=50,
+                                       grid_color="#AAAAAA", text_color="#000000")
         l_vel.addWidget(self.scope_vel)
         grid_layout.addLayout(l_vel, 1, 0)
 
         # 4. 角加速度示波器
         l_acc = QVBoxLayout()
         l_acc.addWidget(QLabel("4. 角加速度 (rad/s²)", styleSheet="font-weight:bold; color:#333"))
-        self.scope_acc = SimulinkScope(line_color="#9C27B0", y_min=-10, y_max=10)
+        # 显式传入白底参数
+        self.scope_acc = SimulinkScope(bg_color="#FFFFFF", line_color="#9C27B0", y_min=-10, y_max=10,
+                                       grid_color="#AAAAAA", text_color="#000000")
         l_acc.addWidget(self.scope_acc)
         grid_layout.addLayout(l_acc, 1, 1)
 
@@ -766,37 +775,24 @@ class SimulinkBridgeDialog(QDialog):
 
         # 2. 纯 Python 模拟数据生成
         self.sim_time_step += 0.2
-        t = self.sim_time_step
 
-        # [核心修改]
-        # 使用物理公式 (二阶系统阶跃响应) 生成全程平滑的曲线，消除 t=25 时的拐点
+        # 温度：二阶欠阻尼响应模拟 (平滑无拐点)
         target_val = 58.1
-
-        # 参数调整：
-        # wn=0.1, zeta=0.2
-        # 使得上升时间约为 25~30s，并在之后发生震荡，最后平稳
         zeta = 0.2
         wn = 0.1
-
-        # 物理公式：y(t) = K * [1 - (e^(-zwnt)/sqrt(1-z^2)) * sin(wd*t + phi)]
         beta = math.sqrt(1 - zeta ** 2)
         wd = wn * beta
         phi = math.atan(beta / zeta)
 
-        # 计算基础响应 (平滑曲线，无拐点)
-        response = target_val * (1 - (math.exp(-zeta * wn * t) / beta) * math.sin(wd * t + phi))
-
-        # 叠加 t > 100 后的缓慢漂移
+        response = target_val * (
+                    1 - (math.exp(-zeta * wn * self.sim_time_step) / beta) * math.sin(wd * self.sim_time_step + phi))
         drift = 0
-        if t > 100:
-            drift = (t - 100) * 0.02
-
-        final_temp = response + drift + random.uniform(-0.05, 0.05)
-        if final_temp < 0: final_temp = 0
+        if self.sim_time_step > 100: drift = (self.sim_time_step - 100) * 0.02
+        final_temp = max(0, response + drift + random.uniform(-0.05, 0.05))
 
         self.scope_temp.update_data(final_temp)
 
-        # 其他保持随机模拟
+        # 其他示波器
         pos_val = self.sim_time_step * 10.0 + random.uniform(-0.1, 0.1)
         self.scope_pos.update_data(pos_val)
 

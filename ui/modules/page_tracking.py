@@ -9,8 +9,8 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
                              QHeaderView, QFrame, QGroupBox, QApplication,
                              QPushButton, QMessageBox, QTabWidget, QProgressBar,
                              QSlider, QStyleOptionSlider, QStyle, QLineEdit, QDialog, QFormLayout, QDialogButtonBox,
-                             QComboBox)  # Added QLineEdit, QDialog, etc.
-from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont, QAction  # Added QAction
+                             QComboBox, QTextEdit)
+from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont, QAction
 from PyQt6.QtCore import Qt, QTimer, QPointF, QThread, pyqtSignal, QRect
 
 import pyqtgraph as pg
@@ -18,6 +18,7 @@ import pyqtgraph as pg
 # === 全局绘图配置 ===
 pg.setConfigOption('background', 'w')
 pg.setConfigOption('foreground', 'k')
+pg.setConfigOption('antialias', True)
 
 # === 尝试导入 Neo4j 驱动 ===
 try:
@@ -29,7 +30,7 @@ except ImportError:
 
 
 # ============================================================================
-# 0. Neo4j 连接管理类 (保持不变)
+# 0. Neo4j 连接管理类
 # ============================================================================
 class Neo4jHandler:
     _instance = None
@@ -133,6 +134,76 @@ class UploadButtonWidget(QWidget):
 # ============================================================================
 # 1. Tab 1: 状态追踪与拓扑图
 # ============================================================================
+
+# === 配方上下文面板 ===
+class RecipeContextPanel(QFrame):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setFrameShape(QFrame.Shape.StyledPanel)
+
+        # 使用 setProperty 配合 QSS
+        self.setStyleSheet("""
+            RecipeContextPanel { background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; }
+            QLabel { color: #333; }
+            QLabel[class="title"] { font-size: 14px; font-weight: bold; color: #0d47a1; }
+            QLabel[class="label"] { font-weight: bold; color: #555; }
+            QLabel[class="value"] { color: #000; }
+            QTextEdit[class="desc"] { font-style: italic; color: #444; background: #e3f2fd; padding: 5px; border-radius: 4px; }
+        """)
+
+        layout = QVBoxLayout(self)
+
+        # 1. 内部标题 (包含具体批次号)
+        self.lbl_title = QLabel("洗发水Standard_Batch_A")
+        self.lbl_title.setProperty("class", "title")
+        layout.addWidget(self.lbl_title)
+
+        # 详情网格
+        grid = QFormLayout()
+        grid.setSpacing(8)
+
+        self.lbl_recipe_name = QLabel("Standard_Batch_A")
+        self.lbl_step_name = QLabel("初始化")
+        self.lbl_target_val = QLabel("---")
+        self.lbl_ingredients = QLabel("---")
+
+        # 辅助函数：快速创建带样式的 Label
+        def create_styled_label(text, style_class):
+            l = QLabel(text)
+            l.setProperty("class", style_class)
+            return l
+
+        grid.addRow(create_styled_label("执行配方:", "label"), self.lbl_recipe_name)
+        grid.addRow(create_styled_label("当前工序:", "label"), self.lbl_step_name)
+        grid.addRow(create_styled_label("目标设定(SP):", "label"), self.lbl_target_val)
+        grid.addRow(create_styled_label("涉及物料:", "label"), self.lbl_ingredients)
+
+        layout.addLayout(grid)
+
+        # 深度解释区域
+        layout.addWidget(create_styled_label("备注:", "label"))
+
+        self.txt_explanation = QTextEdit()
+        self.txt_explanation.setReadOnly(True)
+        self.txt_explanation.setFixedHeight(80)
+        self.txt_explanation.setProperty("class", "desc")
+        self.txt_explanation.setStyleSheet("border: none; background: #e3f2fd; font-size: 12px;")
+        layout.addWidget(self.txt_explanation)
+
+        layout.addStretch()
+
+    def update_context(self, state_name, recipe_data):
+        """根据状态更新面板内容"""
+        info = recipe_data.get(state_name, recipe_data.get("default", {
+            "target_temp": 0.0, "materials": "-", "logic_desc": "无描述"
+        }))
+
+        self.lbl_step_name.setText(state_name)
+        self.lbl_target_val.setText(f"{info['target_temp']} °C")
+        self.lbl_ingredients.setText(info['materials'])
+        self.txt_explanation.setText(info['logic_desc'])
+
+
 class StateMachineWidget(QWidget):
     def __init__(self):
         super().__init__()
@@ -296,6 +367,36 @@ class StateMachineWidget(QWidget):
 class StateTrackingPage(QWidget):
     def __init__(self):
         super().__init__()
+
+        # === 1. 定义配方工艺逻辑库 ===
+        self.recipe_db = {
+            "空转": {
+                "target_temp": 25.0,
+                "materials": "无 (系统待机)",
+                "logic_desc": "工艺说明：设备处于低功耗待机模式。此时监测温度应接近室温，若温度过高则提示散热异常。"
+            },
+            "加热": {
+                "target_temp": 85.0,
+                "materials": "去离子水 + 1618醇",
+                "logic_desc": "工艺说明：升温熔化固态脂肪醇。关键控制点：温度需保持 >80°C 以确保油脂完全熔化，为乳化做准备。"
+            },
+            "混合": {
+                "target_temp": 85.0,
+                "materials": "基质 + 表面活性剂",
+                "logic_desc": "工艺说明：恒温高速剪切。在此阶段保持高温是为了降低体系粘度，确保表面活性剂均匀分散。"
+            },
+            "反应": {
+                "target_temp": 82.0,
+                "materials": "全组分 (含催化剂)",
+                "logic_desc": "工艺说明：放热反应阶段。虽然设定值为82°C，但由于反应放热，实际温度可能出现超调，需开启冷却水微调。"
+            },
+            "default": {
+                "target_temp": 0.0,
+                "materials": "未知",
+                "logic_desc": "停机或未知状态，请检查设备连接。"
+            }
+        }
+
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(10, 10, 10, 10)
         self.layout.setSpacing(10)
@@ -303,35 +404,103 @@ class StateTrackingPage(QWidget):
         self.hold_duration_sec = 2 * 60
         self.current_hold_counter = 0
         self.next_state_name = "空转"
-        self.init_chart_area()
+
+        # 记录阶段标记 (InfiniteLine, TextItem)
+        self.stage_markers = []
+
+        # 初始化 UI
+        self.init_top_section()
         self.init_bottom_area()
+
         self.data_x = list(range(100));
-        self.data_y = [85.0] * 100;
+        self.data_y = [25.0] * 100;
         self.ptr = 100
+        self.current_target = 25.0
+
         self.timer = QTimer();
         self.timer.timeout.connect(self.update_data);
         self.timer.start(self.timer_interval_ms)
-        self.sm_widget.set_state(self.next_state_name)
 
-    def init_chart_area(self):
-        gb = QGroupBox("实时趋势")
-        gb.setStyleSheet("""
-            QGroupBox { background-color: white; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px; font-weight: bold; color: #333; }
-            QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 0 3px; }
-        """)
-        l = QVBoxLayout(gb)
-        self.lbl_timer = QLabel(f"当前状态保持中... ")
+        # 初始触发
+        self.sm_widget.set_state(self.next_state_name)
+        self.update_recipe_ui()
+
+    def init_top_section(self):
+        """顶部区域：左侧实时趋势图，右侧配方上下文"""
+        top_container = QWidget()
+        h_layout = QHBoxLayout(top_container)
+        h_layout.setContentsMargins(0, 0, 0, 0)
+        h_layout.setSpacing(10)  # 左右间距
+
+        # 统一的 GroupBox 样式（包含顶部内边距防遮挡）
+        gb_style = """
+            QGroupBox { 
+                background-color: white; 
+                border: 1px solid #ccc; 
+                border-radius: 5px; 
+                font-weight: bold; 
+                color: #333; 
+                padding-top: 5px; 
+                margin-top: 10px; 
+            }
+            QGroupBox::title { 
+                subcontrol-origin: margin; 
+                subcontrol-position: top left; 
+                left: 10px; 
+                padding: 0 5px; 
+            }
+        """
+
+        # === 左侧：图表 ===
+        gb_chart = QGroupBox("实时温度趋势 (关联配方设定)")
+        gb_chart.setStyleSheet(gb_style)
+        l_chart = QVBoxLayout(gb_chart)
+        l_chart.setContentsMargins(10, 2, 10, 10)
+
+        self.lbl_timer = QLabel(f"状态保持中... ")
         self.lbl_timer.setStyleSheet("color: #666; font-size: 12px; margin-bottom: 5px;")
         self.lbl_timer.setAlignment(Qt.AlignmentFlag.AlignRight)
-        l.addWidget(self.lbl_timer)
+        l_chart.addWidget(self.lbl_timer)
+
         self.plot = pg.PlotWidget()
-        self.plot.setBackground('w');
+        self.plot.setBackground('w')
         self.plot.showGrid(x=True, y=True, alpha=0.3)
-        self.curve = self.plot.plot(pen=pg.mkPen('#007acc', width=2))
-        self.plot.addItem(
-            pg.InfiniteLine(pos=85, angle=0, pen=pg.mkPen('#4CAF50', width=2, style=Qt.PenStyle.DashLine)))
-        l.addWidget(self.plot)
-        self.layout.addWidget(gb, stretch=3)
+        self.plot.addLegend(offset=(50, 10))
+
+        # 锁定 Y 轴范围，留出充足顶部空间，防止曲线遮挡标题
+        self.plot.setYRange(-10, 140, padding=0)
+
+        self.curve = self.plot.plot(name="实际温度 PV", pen=pg.mkPen('#007acc', width=2))
+
+        self.target_line = pg.InfiniteLine(
+            pos=25,
+            angle=0,
+            pen=pg.mkPen('#F44336', width=2, style=Qt.PenStyle.DashLine),
+            label="配方设定 SP: {value:0.1f}°C",
+            labelOpts={'position': 0.8, 'color': '#D32F2F', 'movable': True, 'fill': (255, 255, 255, 200)}
+        )
+        self.plot.addItem(self.target_line)
+
+        l_chart.addWidget(self.plot)
+        h_layout.addWidget(gb_chart, stretch=2)
+
+        # === 右侧：配方上下文面板 ===
+        # 【修改】外框标题改为通用标题，保持与左侧高度一致
+        gb_recipe = QGroupBox("当前配方工艺")
+        gb_recipe.setStyleSheet(gb_style)
+
+        l_recipe = QVBoxLayout(gb_recipe)
+        l_recipe.setContentsMargins(0, 2, 0, 0)  # 顶部留空匹配 padding-top
+
+        self.recipe_panel = RecipeContextPanel()
+        # 去掉内部面板边框，使其融入 GroupBox
+        self.recipe_panel.setStyleSheet(
+            "RecipeContextPanel { background: transparent; border: none; } " + self.recipe_panel.styleSheet())
+
+        l_recipe.addWidget(self.recipe_panel)
+        h_layout.addWidget(gb_recipe, stretch=1)
+
+        self.layout.addWidget(top_container, stretch=3)
 
     def init_bottom_area(self):
         container = QWidget();
@@ -396,19 +565,54 @@ class StateTrackingPage(QWidget):
             QMessageBox.warning(self, "错误", m)
 
     def update_data(self):
+        # 1. 模拟过程数据
+        target = self.current_target
         last_val = self.data_y[-1]
-        new_val = last_val + random.uniform(-0.5, 0.5) + (85.0 - last_val) * 0.05
+
+        diff = target - last_val
+        noise = random.uniform(-0.5, 0.5)
+        new_val = last_val + (diff * 0.1) + noise
+
         self.data_y.pop(0);
         self.data_y.append(new_val)
         self.data_x.pop(0);
         self.data_x.append(self.ptr);
         self.ptr += 1
+
         self.curve.setData(self.data_x, self.data_y)
+
+        # 2. 清理滚出屏幕的标记
+        min_x = self.data_x[0]
+        active_markers = []
+        for line, label, pos_x in self.stage_markers:
+            if pos_x < min_x:
+                self.plot.removeItem(line)
+                self.plot.removeItem(label)
+            else:
+                active_markers.append((line, label, pos_x))
+        self.stage_markers = active_markers
+
+        # 3. 更新状态逻辑
         self.current_hold_counter += 1
-        self.lbl_timer.setText(f"当前状态: {self.next_state_name}")
+        self.lbl_timer.setText(f"当前状态: {self.next_state_name} ({self.current_hold_counter}s)")
+
         if self.current_hold_counter >= self.hold_duration_sec:
             self.current_hold_counter = 0
             self.transition_state()
+
+    def update_recipe_ui(self):
+        """根据当前状态，更新配方上下文信息"""
+        state_key = self.next_state_name
+
+        if state_key in self.recipe_db:
+            info = self.recipe_db[state_key]
+        else:
+            info = self.recipe_db["空转"]
+
+        self.current_target = info["target_temp"]
+        self.target_line.setPos(self.current_target)
+
+        self.recipe_panel.update_context(state_key, self.recipe_db)
 
     def transition_state(self):
         roll = random.random()
@@ -421,8 +625,25 @@ class StateTrackingPage(QWidget):
         else:
             next_state = random.choice(["空转", "加热", "混合", "反应"])
             parent_state = next_state
+
         self.next_state_name = next_state
         self.sm_widget.set_state(next_state)
+
+        # 【新增】在图表上添加阶段标记
+        # 垂直虚线
+        v_line = pg.InfiniteLine(pos=self.ptr, angle=90, movable=False,
+                                 pen=pg.mkPen('#777', width=1, style=Qt.PenStyle.DashLine))
+        # 标签文字
+        label = pg.TextItem(text=f"▶ {next_state}", anchor=(0, 1), color='#333333')
+        label.setPos(self.ptr, 125)
+
+        self.plot.addItem(v_line)
+        self.plot.addItem(label)
+
+        self.stage_markers.append((v_line, label, self.ptr))
+
+        self.update_recipe_ui()
+
         if parent_state in ["计划内停机", "计划外停机"]:
             upload_str = f"{parent_state} - {next_state}"
             display_str = next_state
@@ -672,6 +893,9 @@ class FSMVisualizer(QWidget):
     def paintEvent(self, event):
         p = QPainter(self)
         p.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        # [修改] 强制绘制白色背景，确保在任何主题下都是白底
+        p.fillRect(self.rect(), QColor("white"))
 
         # 1. 绘制 Simulink 风格背景网格
         self.draw_grid(p)
