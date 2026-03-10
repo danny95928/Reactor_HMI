@@ -15,6 +15,14 @@ from PyQt6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, QG
 from PyQt6.QtCore import Qt, QTimer, QPointF, pyqtSignal, QObject, QRect, QThread
 from PyQt6.QtGui import QPainter, QPen, QColor, QFont, QCursor
 
+# === 关键修改：导入通信类 ===
+# 假设你的项目根目录下有 core 文件夹，且里面有 websocket_worker.py
+try:
+    from core.websocket_worker import RealtimeDataWorker
+except ImportError:
+    print("提示: 未找到 core.websocket_worker 模块，将无法连接 Go 引擎。")
+    RealtimeDataWorker = None
+
 # === 尝试导入 Matlab Engine ===
 try:
     import matlab.engine
@@ -258,10 +266,10 @@ class CommandListDialog(QDialog):
 
 
 # ============================================================================
-# 3. 模拟 Simulink 示波器 (GUI部分) - 【修改点：默认颜色改为白色】
+# 3. 模拟 Simulink 示波器 (GUI部分)
 # ============================================================================
 class SimulinkScope(QWidget):
-    # 修改默认值为白底黑字 (#FFFFFF, #000000) 和灰网格 (#AAAAAA)
+    # 默认颜色改为白色
     def __init__(self, bg_color="#FFFFFF", line_color="#FFFF00", y_min=0, y_max=100,
                  grid_color="#AAAAAA", text_color="#000000"):
         super().__init__()
@@ -785,7 +793,7 @@ class SimulinkBridgeDialog(QDialog):
         phi = math.atan(beta / zeta)
 
         response = target_val * (
-                    1 - (math.exp(-zeta * wn * self.sim_time_step) / beta) * math.sin(wd * self.sim_time_step + phi))
+                1 - (math.exp(-zeta * wn * self.sim_time_step) / beta) * math.sin(wd * self.sim_time_step + phi))
         drift = 0
         if self.sim_time_step > 100: drift = (self.sim_time_step - 100) * 0.02
         final_temp = max(0, response + drift + random.uniform(-0.05, 0.05))
@@ -859,6 +867,14 @@ class VirtualControlPage(QWidget):
         self.reactor = reactor_core
         self.current_batches = []
         self.setStyleSheet("color: black; font-family: 'Segoe UI', Arial;")
+
+        # === 启动 WebSocket 监听线程 ===
+        if RealtimeDataWorker:
+            self.ws_worker = RealtimeDataWorker("ws://localhost:8080/ws")
+            self.ws_worker.data_received.connect(self.update_real_data)
+            self.ws_worker.start()
+        else:
+            self.ws_worker = None
 
         main_layout = QVBoxLayout(self)
         main_layout.setSpacing(15)
@@ -951,6 +967,20 @@ class VirtualControlPage(QWidget):
         self.timer.timeout.connect(self.refresh_data)
         self.timer.start(1000)
 
+    # === 新增：接收 WebSocket 数据 ===
+    def update_real_data(self, data):
+        """处理 Go 引擎发来的实时数据"""
+        # 1. 提取温度
+        temp_val = data.get("temp", 0.0)
+        # 2. 提取老化因子
+        aging_val = data.get("aging_factor", 0.0)
+
+        # 更新仪表盘
+        self.inst_temp.update_value(temp_val)
+
+        # 更新预测信息（示例：显示老化因子）
+        self.lbl_pred_exec_batch.setText(f"老化因子: {aging_val:.4f}")
+
     def on_import_recipe(self):
         dialog = RecipeImportDialog(self)
         result = dialog.exec()
@@ -990,12 +1020,20 @@ class VirtualControlPage(QWidget):
         self.lbl_status.setStyleSheet("color: #f57c00; font-weight: bold; padding-left: 10px;")
 
     def refresh_data(self):
-        base_temp = 85.0 + random.uniform(-0.5, 0.5)
+        # 修改：不再随机生成温度，温度由 Go 引擎接管
+        # base_temp = 85.0 + random.uniform(-0.5, 0.5)
+        # self.inst_temp.update_value(base_temp)
+
         base_speed = 120 + random.randint(-2, 2)
         base_flow = 5.2 + random.uniform(-0.1, 0.1)
-        self.inst_temp.update_value(base_temp)
         self.inst_speed.update_value(base_speed)
         self.inst_flow.update_value(base_flow)
+
+    def closeEvent(self, event):
+        """窗口关闭时停止线程"""
+        if self.ws_worker:
+            self.ws_worker.stop()
+        super().closeEvent(event)
 
 
 if __name__ == "__main__":

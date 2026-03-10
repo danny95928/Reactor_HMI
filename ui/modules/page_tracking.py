@@ -2,7 +2,10 @@ import sys
 import random
 import datetime
 import math
+import json
+import requests  # 新增：用于调用 Go 后端 API
 from collections import Counter
+from time import ctime
 
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
                              QTableWidget, QTableWidgetItem,
@@ -14,6 +17,13 @@ from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont, QAction
 from PyQt6.QtCore import Qt, QTimer, QPointF, QThread, pyqtSignal, QRect
 
 import pyqtgraph as pg
+
+# === 关键修改：导入通信类 ===
+try:
+    from core.websocket_worker import RealtimeDataWorker
+except ImportError:
+    print("提示: 未找到 core.websocket_worker 模块")
+    RealtimeDataWorker = None
 
 # === 全局绘图配置 ===
 pg.setConfigOption('background', 'w')
@@ -28,9 +38,94 @@ try:
 except ImportError:
     HAS_NEO4J = False
 
+# === 尝试导入 ntplib (用于 UDP NTP 时间同步) ===
+try:
+    import ntplib
+
+    HAS_NTP = True
+except ImportError:
+    HAS_NTP = False
+
 
 # ============================================================================
-# 0. Neo4j 连接管理类
+# 0.1 KLMS 拟合工作线程 (核心新增模块)
+# ============================================================================
+class KLMSFitWorker(QThread):
+    """
+    负责执行 KLMS (Kernel Least Mean Squares) 流式学习算法。
+    如果连接到 Go 后端，则调用 API；否则在本地生成符合日化产品
+    三元体系层状网络凝胶结构形成特征的模拟曲线。
+    """
+    result_signal = pyqtSignal(bool, dict, str)
+
+    def __init__(self, current_data):
+        super().__init__()
+        self.current_data = current_data
+
+    def run(self):
+        try:
+            # 1. 尝试连接 Go 后端 API (假设运行在 localhost:8080)
+            payload = {"batch_id": "current_batch", "data": self.current_data}
+            # 设置较短的超时，以便快速回退到演示模式
+            response = requests.post("http://localhost:8080/klms", json=payload, timeout=1)
+
+            if response.status_code == 200:
+                self.result_signal.emit(True, response.json(), "Go 引擎拟合成功")
+            else:
+                raise Exception(f"HTTP {response.status_code}")
+
+        except Exception as e:
+            # 2. 连接失败或超时，使用本地算法生成特征曲线 (图 a82a05 风格)
+            # print(f"[KLMS] 后端连接异常 ({e})，切换至本地演示模式...")
+            mock_result = self.generate_gel_structure_curve(len(self.current_data))
+            self.result_signal.emit(True, mock_result, "演示模式 (本地拟合)")
+
+    def generate_gel_structure_curve(self, length):
+        """
+        生成模拟曲线：日化产品三元体系层状网络凝胶结构形成过程
+        特征：准备期(平稳) -> 结构形成(S形上升) -> 峰值(最大粘度/温度) -> 冷却(下降)
+        """
+        golden = []
+        fitted = []
+
+        # 归一化时间轴，模拟整个工艺过程
+        for i in range(length):
+            # 将当前数据长度映射到 0-100% 的工艺进度
+            t = i / max(1, length) * 100
+
+            # --- 1. 黄金曲线 (Golden Batch) - 理想形态 ---
+            if t < 20:
+                # [a] 准备期 (Preparation)
+                val = 25.0
+            elif t < 60:
+                # [b-d] 结构形成期 (Structure formation) - S形上升
+                # 使用 Sigmoid 函数模拟凝胶化过程中的温度/粘度突变
+                val = 25.0 + 60.0 / (1 + math.exp(-0.2 * (t - 40)))
+            elif t < 80:
+                # [d-e] 峰值/保温
+                val = 85.0
+            else:
+                # [f-g] 冷却期 (Cooling)
+                val = 85.0 - (t - 80) * 2.0
+
+            golden.append(val)
+
+            # --- 2. KLMS 拟合曲线 (Fitted) ---
+            # 模拟算法在线学习过程，带有一定的噪声和跟随滞后
+            noise = random.uniform(-1.0, 1.0)
+            fit_val = val + noise
+
+            # 在剧烈变化区 (S形上升段)，拟合通常会有轻微滞后或偏差
+            if 30 < t < 50:
+                fit_val -= 2.5
+
+            fitted.append(fit_val)
+
+        return {"golden_curve": golden, "fitted_curve": fitted}
+
+
+# ============================================================================
+# 0.2 Neo4j 连接管理类 (修复握手失败版)
 # ============================================================================
 class Neo4jHandler:
     _instance = None
@@ -39,7 +134,8 @@ class Neo4jHandler:
         if cls._instance is None:
             cls._instance = super(Neo4jHandler, cls).__new__(cls)
             cls._instance.driver = None
-            cls._instance.uri = "bolt://localhost:7687"
+            # 修改 1: 强制使用 127.0.0.1，避免 localhost 解析到 IPv6 导致连接被重置
+            cls._instance.uri = "bolt://127.0.0.1:7687"
             cls._instance.auth = ("neo4j", "password")
         return cls._instance
 
@@ -47,11 +143,19 @@ class Neo4jHandler:
         if not HAS_NEO4J: return False, "未安装 neo4j 库"
         try:
             if self.driver: self.driver.close()
-            self.driver = GraphDatabase.driver(self.uri, auth=self.auth)
+
+            # 修改 2: 显式添加 encrypted=False
+            # Docker 本地开发环境通常没有配置 SSL 证书，开启加密会导致握手失败
+            self.driver = GraphDatabase.driver(
+                self.uri,
+                auth=self.auth,
+                encrypted=False
+            )
+
             self.driver.verify_connectivity()
             return True, "连接成功"
         except Exception as e:
-            return False, str(e)
+            return False, f"连接错误: {str(e)}"
 
     def upload_log(self, time_str, state_str):
         if not self.driver: return False, "未连接数据库"
@@ -85,6 +189,7 @@ class Neo4jHandler:
         if self.driver: self.driver.close()
 
 
+# === 修复点：确保 Neo4jWorker 定义在被调用之前 ===
 class Neo4jWorker(QThread):
     finished_signal = pyqtSignal(bool, str)
     status_signal = pyqtSignal(str)
@@ -132,6 +237,31 @@ class UploadButtonWidget(QWidget):
 
 
 # ============================================================================
+# 0.3 NTP (UDP) 时间同步工作线程
+# ============================================================================
+class NtpWorker(QThread):
+    # 信号: (是否成功, 时间字符串/错误信息, 偏差值)
+    result_signal = pyqtSignal(bool, str, float)
+
+    def run(self):
+        if not HAS_NTP:
+            self.result_signal.emit(False, "未安装 ntplib 库", 0.0)
+            return
+
+        try:
+            client = ntplib.NTPClient()
+            # 使用阿里云 NTP 服务器
+            ntp_server = 'ntp.aliyun.com'
+            response = client.request(ntp_server, timeout=5)
+            ntp_time_str = ctime(response.tx_time)
+            offset = response.offset
+            self.result_signal.emit(True, ntp_time_str, offset)
+        except Exception as e:
+            print(f"NTP同步错误: {e}")
+            self.result_signal.emit(False, str(e), 0.0)
+
+
+# ============================================================================
 # 1. Tab 1: 状态追踪与拓扑图
 # ============================================================================
 
@@ -140,8 +270,6 @@ class RecipeContextPanel(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setFrameShape(QFrame.Shape.StyledPanel)
-
-        # 使用 setProperty 配合 QSS
         self.setStyleSheet("""
             RecipeContextPanel { background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; }
             QLabel { color: #333; }
@@ -150,24 +278,17 @@ class RecipeContextPanel(QFrame):
             QLabel[class="value"] { color: #000; }
             QTextEdit[class="desc"] { font-style: italic; color: #444; background: #e3f2fd; padding: 5px; border-radius: 4px; }
         """)
-
         layout = QVBoxLayout(self)
-
-        # 1. 内部标题 (包含具体批次号)
         self.lbl_title = QLabel("洗发水Standard_Batch_A")
         self.lbl_title.setProperty("class", "title")
         layout.addWidget(self.lbl_title)
-
-        # 详情网格
         grid = QFormLayout()
         grid.setSpacing(8)
-
         self.lbl_recipe_name = QLabel("Standard_Batch_A")
         self.lbl_step_name = QLabel("初始化")
         self.lbl_target_val = QLabel("---")
         self.lbl_ingredients = QLabel("---")
 
-        # 辅助函数：快速创建带样式的 Label
         def create_styled_label(text, style_class):
             l = QLabel(text)
             l.setProperty("class", style_class)
@@ -177,27 +298,20 @@ class RecipeContextPanel(QFrame):
         grid.addRow(create_styled_label("当前工序:", "label"), self.lbl_step_name)
         grid.addRow(create_styled_label("目标设定(SP):", "label"), self.lbl_target_val)
         grid.addRow(create_styled_label("涉及物料:", "label"), self.lbl_ingredients)
-
         layout.addLayout(grid)
-
-        # 深度解释区域
         layout.addWidget(create_styled_label("备注:", "label"))
-
         self.txt_explanation = QTextEdit()
         self.txt_explanation.setReadOnly(True)
         self.txt_explanation.setFixedHeight(80)
         self.txt_explanation.setProperty("class", "desc")
         self.txt_explanation.setStyleSheet("border: none; background: #e3f2fd; font-size: 12px;")
         layout.addWidget(self.txt_explanation)
-
         layout.addStretch()
 
     def update_context(self, state_name, recipe_data):
-        """根据状态更新面板内容"""
         info = recipe_data.get(state_name, recipe_data.get("default", {
             "target_temp": 0.0, "materials": "-", "logic_desc": "无描述"
         }))
-
         self.lbl_step_name.setText(state_name)
         self.lbl_target_val.setText(f"{info['target_temp']} °C")
         self.lbl_ingredients.setText(info['materials'])
@@ -215,7 +329,6 @@ class StateMachineWidget(QWidget):
         self.node_radius_leaf = 22
         self.dragging_node_key = None
         self.hovered_node_key = None
-
         self.main_nodes = {
             "计划内停机": {"label": "计划内停机", "pos": [0.2, 0.25], "type": "downtime"},
             "空转": {"label": "空转", "pos": [0.2, 0.55], "type": "main"},
@@ -368,7 +481,6 @@ class StateTrackingPage(QWidget):
     def __init__(self):
         super().__init__()
 
-        # === 1. 定义配方工艺逻辑库 ===
         self.recipe_db = {
             "空转": {
                 "target_temp": 25.0,
@@ -397,18 +509,19 @@ class StateTrackingPage(QWidget):
             }
         }
 
+        self.current_real_temp = 25.0
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(10, 10, 10, 10)
         self.layout.setSpacing(10)
-        self.timer_interval_ms = 1000
+        self.timer_interval_ms = 500
         self.hold_duration_sec = 2 * 60
         self.current_hold_counter = 0
         self.next_state_name = "空转"
-
-        # 记录阶段标记 (InfiniteLine, TextItem)
         self.stage_markers = []
 
-        # 初始化 UI
+        # 存储 KLMS 曲线句柄
+        self.klms_curves = []
+
         self.init_top_section()
         self.init_bottom_area()
 
@@ -421,18 +534,15 @@ class StateTrackingPage(QWidget):
         self.timer.timeout.connect(self.update_data);
         self.timer.start(self.timer_interval_ms)
 
-        # 初始触发
         self.sm_widget.set_state(self.next_state_name)
         self.update_recipe_ui()
 
     def init_top_section(self):
-        """顶部区域：左侧实时趋势图，右侧配方上下文"""
         top_container = QWidget()
         h_layout = QHBoxLayout(top_container)
         h_layout.setContentsMargins(0, 0, 0, 0)
-        h_layout.setSpacing(10)  # 左右间距
+        h_layout.setSpacing(10)
 
-        # 统一的 GroupBox 样式（包含顶部内边距防遮挡）
         gb_style = """
             QGroupBox { 
                 background-color: white; 
@@ -451,11 +561,42 @@ class StateTrackingPage(QWidget):
             }
         """
 
-        # === 左侧：图表 ===
         gb_chart = QGroupBox("实时温度趋势 (关联配方设定)")
         gb_chart.setStyleSheet(gb_style)
         l_chart = QVBoxLayout(gb_chart)
         l_chart.setContentsMargins(10, 2, 10, 10)
+
+        ntp_layout = QHBoxLayout()
+        ntp_layout.setContentsMargins(0, 0, 0, 0)
+        self.btn_sync_ntp = QPushButton("⏱️ NTP 同步")
+        self.btn_sync_ntp.setFixedWidth(100)
+        self.btn_sync_ntp.setStyleSheet("""
+            QPushButton { background-color:#673AB7; color:white; border-radius:3px; font-weight:bold; padding: 2px;}
+            QPushButton:hover { background-color:#5E35B1; }
+        """)
+        self.btn_sync_ntp.clicked.connect(self.start_ntp_sync)
+
+        # 新增 KLMS 拟合按钮
+        self.btn_klms = QPushButton("🌊 KLMS 拟合")
+        self.btn_klms.setFixedWidth(100)
+        self.btn_klms.setStyleSheet("""
+            QPushButton { background-color:#FF9800; color:white; border-radius:3px; font-weight:bold; padding: 2px;}
+            QPushButton:hover { background-color:#F57C00; }
+        """)
+        self.btn_klms.setToolTip("调用 Go 引擎进行流式学习，拟合层状网络凝胶结构曲线")
+        self.btn_klms.clicked.connect(self.start_klms_fitting)
+
+        self.lbl_ntp_status = QLabel("NTP: 未同步")
+        self.lbl_ntp_status.setStyleSheet("color: #555; margin-left: 5px; font-size: 11px;")
+        self.lbl_ntp_offset = QLabel("偏差: --")
+        self.lbl_ntp_offset.setStyleSheet("color: #E91E63; font-weight:bold; margin-left: 10px; font-size: 11px;")
+
+        ntp_layout.addWidget(self.btn_sync_ntp)
+        ntp_layout.addWidget(self.btn_klms)  # 添加按钮到布局
+        ntp_layout.addWidget(self.lbl_ntp_status)
+        ntp_layout.addWidget(self.lbl_ntp_offset)
+        ntp_layout.addStretch()
+        l_chart.addLayout(ntp_layout)
 
         self.lbl_timer = QLabel(f"状态保持中... ")
         self.lbl_timer.setStyleSheet("color: #666; font-size: 12px; margin-bottom: 5px;")
@@ -466,8 +607,6 @@ class StateTrackingPage(QWidget):
         self.plot.setBackground('w')
         self.plot.showGrid(x=True, y=True, alpha=0.3)
         self.plot.addLegend(offset=(50, 10))
-
-        # 锁定 Y 轴范围，留出充足顶部空间，防止曲线遮挡标题
         self.plot.setYRange(-10, 140, padding=0)
 
         self.curve = self.plot.plot(name="实际温度 PV", pen=pg.mkPen('#007acc', width=2))
@@ -480,26 +619,18 @@ class StateTrackingPage(QWidget):
             labelOpts={'position': 0.8, 'color': '#D32F2F', 'movable': True, 'fill': (255, 255, 255, 200)}
         )
         self.plot.addItem(self.target_line)
-
         l_chart.addWidget(self.plot)
         h_layout.addWidget(gb_chart, stretch=2)
 
-        # === 右侧：配方上下文面板 ===
-        # 【修改】外框标题改为通用标题，保持与左侧高度一致
         gb_recipe = QGroupBox("当前配方工艺")
         gb_recipe.setStyleSheet(gb_style)
-
         l_recipe = QVBoxLayout(gb_recipe)
-        l_recipe.setContentsMargins(0, 2, 0, 0)  # 顶部留空匹配 padding-top
-
+        l_recipe.setContentsMargins(0, 2, 0, 0)
         self.recipe_panel = RecipeContextPanel()
-        # 去掉内部面板边框，使其融入 GroupBox
         self.recipe_panel.setStyleSheet(
             "RecipeContextPanel { background: transparent; border: none; } " + self.recipe_panel.styleSheet())
-
         l_recipe.addWidget(self.recipe_panel)
         h_layout.addWidget(gb_recipe, stretch=1)
-
         self.layout.addWidget(top_container, stretch=3)
 
     def init_bottom_area(self):
@@ -564,15 +695,76 @@ class StateTrackingPage(QWidget):
             self.btn_neo.setText("🔌 连接 Neo4j");
             QMessageBox.warning(self, "错误", m)
 
+    def start_ntp_sync(self):
+        self.btn_sync_ntp.setEnabled(False)
+        self.btn_sync_ntp.setText("同步中...")
+        self.ntp_thread = NtpWorker()
+        self.ntp_thread.result_signal.connect(self.on_ntp_result)
+        self.ntp_thread.start()
+
+    def on_ntp_result(self, success, msg, offset):
+        self.btn_sync_ntp.setEnabled(True)
+        self.btn_sync_ntp.setText("⏱️ NTP 同步")
+        if success:
+            self.lbl_ntp_status.setText(f"NTP: {msg.split(' ')[3]}")
+            self.lbl_ntp_offset.setText(f"偏差: {offset:.6f} s")
+            QMessageBox.information(self, "同步成功",
+                                    f"NTP 时间: {msg}\n本地偏差: {offset:.6f} 秒\n(已使用 UDP 协议校准)")
+        else:
+            self.lbl_ntp_status.setText("NTP: 失败")
+            QMessageBox.warning(self, "同步失败", msg)
+
+    # === KLMS 拟合逻辑 ===
+    def start_klms_fitting(self):
+        self.btn_klms.setText("计算中...")
+        self.btn_klms.setEnabled(False)
+
+        # 取出当前缓冲区的所有数据作为样本
+        sample_data = self.data_y[:]
+
+        self.klms_worker = KLMSFitWorker(sample_data)
+        self.klms_worker.result_signal.connect(self.on_klms_result)
+        self.klms_worker.start()
+
+    def on_klms_result(self, success, result, msg):
+        self.btn_klms.setText("🌊 KLMS 拟合")
+        self.btn_klms.setEnabled(True)
+
+        if not success:
+            QMessageBox.warning(self, "拟合失败", msg)
+            return
+
+        # 1. 清除上一次的拟合曲线
+        for curve_item in self.klms_curves:
+            self.plot.removeItem(curve_item)
+        self.klms_curves.clear()
+
+        # 2. 绘制黄金曲线 (Golden Batch) - 绿色实线
+        golden_data = result.get("golden_curve", [])
+        if golden_data:
+            # 这里的 x 坐标与当前实时数据对齐
+            x_vals = [self.ptr - len(golden_data) + i for i in range(len(golden_data))]
+            c1 = self.plot.plot(x_vals, golden_data,
+                                pen=pg.mkPen('g', width=2),
+                                name="黄金批次 (Golden)")
+            self.klms_curves.append(c1)
+
+        # 3. 绘制 KLMS 拟合曲线 - 红色虚线
+        fitted_data = result.get("fitted_curve", [])
+        if fitted_data:
+            x_vals = [self.ptr - len(fitted_data) + i for i in range(len(fitted_data))]
+            c2 = self.plot.plot(x_vals, fitted_data,
+                                pen=pg.mkPen('r', width=2, style=Qt.PenStyle.DotLine),
+                                name="KLMS 拟合")
+            self.klms_curves.append(c2)
+
+        QMessageBox.information(self, "拟合完成", f"{msg}\n已在图表中叠加显示凝胶结构拟合曲线。")
+
+    def ingest_data(self, temp_val):
+        self.current_real_temp = temp_val
+
     def update_data(self):
-        # 1. 模拟过程数据
-        target = self.current_target
-        last_val = self.data_y[-1]
-
-        diff = target - last_val
-        noise = random.uniform(-0.5, 0.5)
-        new_val = last_val + (diff * 0.1) + noise
-
+        new_val = self.current_real_temp
         self.data_y.pop(0);
         self.data_y.append(new_val)
         self.data_x.pop(0);
@@ -581,7 +773,6 @@ class StateTrackingPage(QWidget):
 
         self.curve.setData(self.data_x, self.data_y)
 
-        # 2. 清理滚出屏幕的标记
         min_x = self.data_x[0]
         active_markers = []
         for line, label, pos_x in self.stage_markers:
@@ -592,7 +783,6 @@ class StateTrackingPage(QWidget):
                 active_markers.append((line, label, pos_x))
         self.stage_markers = active_markers
 
-        # 3. 更新状态逻辑
         self.current_hold_counter += 1
         self.lbl_timer.setText(f"当前状态: {self.next_state_name} ({self.current_hold_counter}s)")
 
@@ -601,17 +791,13 @@ class StateTrackingPage(QWidget):
             self.transition_state()
 
     def update_recipe_ui(self):
-        """根据当前状态，更新配方上下文信息"""
         state_key = self.next_state_name
-
         if state_key in self.recipe_db:
             info = self.recipe_db[state_key]
         else:
             info = self.recipe_db["空转"]
-
         self.current_target = info["target_temp"]
         self.target_line.setPos(self.current_target)
-
         self.recipe_panel.update_context(state_key, self.recipe_db)
 
     def transition_state(self):
@@ -629,19 +815,14 @@ class StateTrackingPage(QWidget):
         self.next_state_name = next_state
         self.sm_widget.set_state(next_state)
 
-        # 【新增】在图表上添加阶段标记
-        # 垂直虚线
         v_line = pg.InfiniteLine(pos=self.ptr, angle=90, movable=False,
                                  pen=pg.mkPen('#777', width=1, style=Qt.PenStyle.DashLine))
-        # 标签文字
         label = pg.TextItem(text=f"▶ {next_state}", anchor=(0, 1), color='#333333')
         label.setPos(self.ptr, 125)
 
         self.plot.addItem(v_line)
         self.plot.addItem(label)
-
         self.stage_markers.append((v_line, label, self.ptr))
-
         self.update_recipe_ui()
 
         if parent_state in ["计划内停机", "计划外停机"]:
@@ -665,39 +846,51 @@ class StateTrackingPage(QWidget):
 
 
 # ============================================================================
-# 2. Tab 2: 时间切片
+# 2. Tab 2: 时间切片 (TimeSlicePage) - 优化版 (后端驱动)
 # ============================================================================
 class TimeSlicePage(QWidget):
     def __init__(self):
         super().__init__()
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(10, 10, 10, 10)
+
+        # --- 顶部状态栏 ---
         self.panel = QFrame()
         self.panel.setStyleSheet("background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 4px; color: #333;")
         pl = QHBoxLayout(self.panel)
-        self.lbl_idx = QLabel("当前切片: #1");
+
+        self.lbl_idx = QLabel("等待后端切片数据...")
         self.lbl_idx.setStyleSheet("font-weight: bold; font-size: 13px; color: #000;")
-        self.pbar = QProgressBar();
-        self.pbar.setFixedWidth(200);
+
+        self.pbar = QProgressBar()
+        self.pbar.setFixedWidth(200)
         self.pbar.setTextVisible(True)
         self.pbar.setStyleSheet("""QProgressBar { border: 1px solid #999; border-radius: 3px; background: white; color: black; text-align: center; }
-            QProgressBar::chunk { background-color: #2196F3; width: 10px; }""")
-        self.lbl_stats = QLabel("等待生成切片...");
+            QProgressBar::chunk { background-color: #FF9800; width: 10px; }""")
+
+        self.lbl_stats = QLabel("暂无归档数据")
         self.lbl_stats.setStyleSheet("color: #555; margin-left: 20px;")
-        pl.addWidget(self.lbl_idx);
-        pl.addWidget(self.pbar);
-        pl.addWidget(self.lbl_stats);
+
+        pl.addWidget(self.lbl_idx)
+        pl.addWidget(self.pbar)
+        pl.addWidget(self.lbl_stats)
         pl.addStretch()
         self.layout.addWidget(self.panel)
-        self.plot = pg.PlotWidget();
-        self.plot.setBackground('w');
+
+        # --- 中部图表 (优化版) ---
+        self.plot = pg.PlotWidget()
+        self.plot.setBackground('w')
         self.plot.showGrid(x=True, y=True, alpha=0.3)
-        self.plot.setLabel('left', '温度', units='C', color='k');
-        self.plot.setLabel('bottom', '时间轴', color='k')
+        self.plot.setLabel('left', '温度', units='C', color='k')
+        self.plot.setClipToView(True)
+        self.plot.setDownsampling(mode='peak')
+
         self.curve = self.plot.plot(pen=pg.mkPen('#FF9800', width=2))
         self.layout.addWidget(self.plot, stretch=2)
-        self.table = QTableWidget(0, 3)
-        self.table.setHorizontalHeaderLabels(["切片ID", "平均温度", "主导状态"])
+
+        # --- 底部表格 ---
+        self.table = QTableWidget(0, 5)
+        self.table.setHorizontalHeaderLabels(["切片ID", "开始时间", "平均温度", "极值 (Min/Max)", "持续时长"])
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.table.verticalHeader().setVisible(False)
         self.table.setStyleSheet("""QTableWidget { border: 1px solid #ccc; font-size: 12px; color: #000; background-color: white; }
@@ -705,55 +898,57 @@ class TimeSlicePage(QWidget):
             QTableWidget::item { color: #000; padding-left: 5px; }""")
         self.layout.addWidget(self.table, stretch=1)
 
-        self.data_x = [];
-        self.data_y = [];
-        self.ptr = 0;
-        self.slice_int = 10;
-        self.cnt = 0;
-        self.slice_id = 1
-        self.buf_data = [];
-        self.buf_st = []
-        self.timer = QTimer();
-        self.timer.timeout.connect(self.update);
-        self.timer.start(1000)
+        # 数据缓存 (用于绘图，设置上限)
+        self.max_points = 2000
+        self.data_x = []
+        self.data_y = []
+        self.ptr = 0
 
-    def update(self):
-        val = 85 + random.uniform(-2, 2);
-        st = random.choice(["加热", "反应", "空转"])
-        self.data_x.append(self.ptr);
-        self.data_y.append(val);
+    def update_realtime_curve(self, temp_val):
+        """仅更新曲线，不做切片计算"""
+        self.data_x.append(self.ptr)
+        self.data_y.append(temp_val)
         self.ptr += 1
+
+        if len(self.data_x) > self.max_points:
+            self.data_x = self.data_x[-self.max_points:]
+            self.data_y = self.data_y[-self.max_points:]
+
         self.curve.setData(self.data_x, self.data_y)
-        self.buf_data.append(val);
-        self.buf_st.append(st);
-        self.cnt += 1
-        self.pbar.setValue(int((self.cnt / self.slice_int) * 100))
-        if self.cnt >= self.slice_int:
-            v = pg.InfiniteLine(pos=self.ptr, angle=90, pen=pg.mkPen('#999', width=1, style=Qt.PenStyle.DashLine),
-                                label=f"切片 #{self.slice_id}",
-                                labelOpts={'position': 0.1, 'color': '#333', 'movable': True})
-            self.plot.addItem(v)
-            avg = sum(self.buf_data) / len(self.buf_data);
-            dom = Counter(self.buf_st).most_common(1)[0][0]
-            self.lbl_stats.setText(f"✅ 切片 #{self.slice_id} 归档: {avg:.1f}°C ({dom})")
-            r = self.table.rowCount();
-            self.table.insertRow(r)
-            self.table.setItem(r, 0, QTableWidgetItem(f"#{self.slice_id}"))
-            self.table.setItem(r, 1, QTableWidgetItem(f"{avg:.2f}"))
-            self.table.setItem(r, 2, QTableWidgetItem(dom))
-            self.table.scrollToBottom()
-            self.slice_id += 1;
-            self.cnt = 0;
-            self.buf_data = [];
-            self.buf_st = []
-            self.lbl_idx.setText(f"当前切片: #{self.slice_id}")
+        curr_val = self.pbar.value()
+        self.pbar.setValue((curr_val + 1) % 100)
+
+    def on_slice_received(self, slice_data):
+        """当收到后端 type='slice' 消息时调用"""
+        s_id = slice_data.get("id", -1)
+        avg = slice_data.get("avg_temp", 0.0)
+        max_v = slice_data.get("max_temp", 0.0)
+        min_v = slice_data.get("min_temp", 0.0)
+        start_t = slice_data.get("start_time", "--")
+        dur = slice_data.get("duration", 0)
+
+        self.lbl_idx.setText(f"上一切片: #{s_id}")
+        self.lbl_stats.setText(f"✅ 归档完成: 均值 {avg:.2f}°C")
+        self.pbar.setValue(100)
+
+        v = pg.InfiniteLine(pos=self.ptr, angle=90, pen=pg.mkPen('#555', width=1, style=Qt.PenStyle.DashLine),
+                            label=f"Slice #{s_id}",
+                            labelOpts={'position': 0.9, 'color': '#333', 'movable': True})
+        self.plot.addItem(v)
+
+        r = self.table.rowCount()
+        self.table.insertRow(r)
+        self.table.setItem(r, 0, QTableWidgetItem(f"#{s_id}"))
+        self.table.setItem(r, 1, QTableWidgetItem(str(start_t)))
+        self.table.setItem(r, 2, QTableWidgetItem(f"{avg:.2f} °C"))
+        self.table.setItem(r, 3, QTableWidgetItem(f"{min_v:.1f} / {max_v:.1f}"))
+        self.table.setItem(r, 4, QTableWidgetItem(f"{dur} 秒"))
+        self.table.scrollToBottom()
 
 
 # ============================================================================
 # 3. Tab 3: FSM 逻辑定义 (Simulink 风格 - 全中文)
 # ============================================================================
-
-# 编辑逻辑块的对话框
 class LogicBlockEditorDialog(QDialog):
     def __init__(self, block_data, parent=None):
         super().__init__(parent)
@@ -765,32 +960,22 @@ class LogicBlockEditorDialog(QDialog):
         layout.addRow("名称:", self.name_edit)
         layout.addRow("标签:", self.tag_edit)
         layout.addRow("条件描述:", self.cond_edit)
-
-        # 逻辑类型选择 (简单实现，仅支持现有类型的参数调整)
         self.logic_type_combo = QComboBox()
         self.logic_type_combo.addItems(["范围 (min <= x <= max)", "等于 (x == val)", "小于 (x < val)", "始终 False"])
         layout.addRow("逻辑类型:", self.logic_type_combo)
-
-        # 参数输入
         self.param1_edit = QLineEdit()
         self.param2_edit = QLineEdit()
-        self.target_var_edit = QComboBox()  # 选择变量 temp, rpm, flow
+        self.target_var_edit = QComboBox()
         self.target_var_edit.addItems(["temp", "rpm", "flow"])
-
         layout.addRow("目标变量:", self.target_var_edit)
         layout.addRow("参数 1:", self.param1_edit)
         layout.addRow("参数 2 (仅范围):", self.param2_edit)
-
-        # 解析现有 check 函数尝试回填参数 (简化处理，实际需更复杂解析)
-        # 这里仅提供界面，实际逻辑需用户重新定义
-
         btns = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         btns.accepted.connect(self.accept)
         btns.rejected.connect(self.reject)
         layout.addWidget(btns)
 
     def get_data(self):
-        # 构建新的 check 函数
         l_type = self.logic_type_combo.currentText()
         var = self.target_var_edit.currentText()
         try:
@@ -798,7 +983,6 @@ class LogicBlockEditorDialog(QDialog):
             p2 = float(self.param2_edit.text()) if self.param2_edit.text() else 0
         except ValueError:
             p1, p2 = 0, 0
-
         new_check = lambda d: False
         if "范围" in l_type:
             new_check = lambda d: p1 <= d[var] <= p2
@@ -806,7 +990,6 @@ class LogicBlockEditorDialog(QDialog):
             new_check = lambda d: d[var] == p1
         elif "小于" in l_type:
             new_check = lambda d: d[var] < p1
-
         return {
             "name": self.name_edit.text(),
             "tag": self.tag_edit.text(),
@@ -816,18 +999,10 @@ class LogicBlockEditorDialog(QDialog):
 
 
 class FSMVisualizer(QWidget):
-    """
-    可视化组件：Simulink Stateflow 风格
-    使用专业术语：State, Logic Block, Guard Condition
-    """
-
     def __init__(self):
         super().__init__()
         self.setMinimumHeight(450)
-        # 模拟输入数据
         self.inputs = {"temp": 15, "rpm": 0, "flow": 0, "active_state": "IDLE"}
-
-        # 定义状态机布局与逻辑
         self.fsm_config = {
             "IDLE": {
                 "label": "状态: IDLE (设备空转)",
@@ -870,13 +1045,11 @@ class FSMVisualizer(QWidget):
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
             pos = event.position().toPoint()
-            # 检测点击了哪个状态块的哪个逻辑块
             for state_key, cfg in self.fsm_config.items():
                 rect = cfg["rect"]
                 block_h = 75
                 spacing = 20
                 start_y = rect.y() + 50
-
                 for i, block in enumerate(cfg["logic_blocks"]):
                     b_rect = QRect(rect.x() + 15, start_y + i * (block_h + spacing), rect.width() - 30, block_h)
                     if b_rect.contains(pos):
@@ -893,107 +1066,68 @@ class FSMVisualizer(QWidget):
     def paintEvent(self, event):
         p = QPainter(self)
         p.setRenderHint(QPainter.RenderHint.Antialiasing)
-
-        # [修改] 强制绘制白色背景，确保在任何主题下都是白底
         p.fillRect(self.rect(), QColor("white"))
-
-        # 1. 绘制 Simulink 风格背景网格
         self.draw_grid(p)
-
-        # 字体定义
         font_header = QFont("Microsoft YaHei", 10, QFont.Weight.Bold)
         font_tag = QFont("Consolas", 8, QFont.Weight.Bold)
         font_detail = QFont("Microsoft YaHei", 8)
-
-        # 2. 绘制状态机连线
         p.setPen(QPen(QColor("#777"), 2, Qt.PenStyle.SolidLine))
-        # IDLE -> RUNNING
         p.drawLine(330, 240, 400, 240)
         self.draw_arrow(p, QPointF(395, 240))
-        # RUNNING -> FAULT
         p.drawLine(680, 240, 750, 240)
         self.draw_arrow(p, QPointF(745, 240))
-
-        # 3. 绘制状态 (State Containers)
         for state_key, cfg in self.fsm_config.items():
             rect = cfg["rect"]
             is_active = (self.inputs["active_state"] == state_key)
-
-            # 状态框样式
             if is_active:
-                bg_color = QColor(225, 240, 255)  # Active Blue
+                bg_color = QColor(225, 240, 255)
                 border_color = QColor(0, 100, 200)
                 border_width = 3
             else:
-                bg_color = QColor(245, 245, 245)  # Inactive Grey
+                bg_color = QColor(245, 245, 245)
                 border_color = QColor(180, 180, 180)
                 border_width = 1
-
-            # 绘制容器
             p.setBrush(QBrush(bg_color))
             p.setPen(QPen(border_color, border_width))
             p.drawRoundedRect(rect, 10, 10)
-
-            # 绘制标题栏
             header_h = 30
             p.setPen(QPen(border_color, 1))
             p.drawLine(rect.x(), rect.y() + header_h, rect.right(), rect.y() + header_h)
-
             p.setPen(QPen(QColor("#333")))
             p.setFont(font_header)
             p.drawText(QRect(rect.x() + 10, rect.y(), rect.width(), header_h),
                        Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft, cfg["label"])
-
-            # 激活状态指示灯
             if is_active:
-                p.setBrush(QColor(0, 200, 0))  # Green LED
+                p.setBrush(QColor(0, 200, 0))
                 p.setPen(Qt.PenStyle.NoPen)
                 p.drawEllipse(QPointF(rect.right() - 20, rect.y() + 15), 5, 5)
-
-            # 4. 绘制逻辑块 (Logic Blocks)
             block_h = 75
             spacing = 20
             start_y = rect.y() + 50
-
             for i, block in enumerate(cfg["logic_blocks"]):
-                # 逻辑判定
                 cond_met = block["check"](self.inputs)
                 is_blk_active = is_active and cond_met
-
-                # 块位置
                 b_rect = QRect(rect.x() + 15, start_y + i * (block_h + spacing), rect.width() - 30, block_h)
-
-                # 块样式 (Simulink Block)
                 if is_blk_active:
-                    b_bg = QColor(255, 193, 7)  # Amber for active
+                    b_bg = QColor(255, 193, 7)
                     b_border = QColor(255, 111, 0)
                     line_w = 2
                 else:
                     b_bg = QColor(255, 255, 255)
                     b_border = QColor(200, 200, 200)
                     line_w = 1
-
                 p.setBrush(QBrush(b_bg))
                 p.setPen(QPen(b_border, line_w))
                 p.drawRoundedRect(b_rect, 4, 4)
-
-                # 端口装饰 (Ports)
                 p.setBrush(QColor("#555"))
-                p.drawRect(b_rect.x() - 2, b_rect.y() + 15, 4, 6)  # In
-                p.drawRect(b_rect.right() - 2, b_rect.y() + 15, 4, 6)  # Out
-
-                # 内容文本
-                # Name
+                p.drawRect(b_rect.x() - 2, b_rect.y() + 15, 4, 6)
+                p.drawRect(b_rect.right() - 2, b_rect.y() + 15, 4, 6)
                 p.setPen(QPen(QColor("#000")))
                 p.setFont(font_detail)
                 p.drawText(b_rect.adjusted(10, 5, -5, 0), Qt.AlignmentFlag.AlignLeft, block["name"])
-
-                # Tag (Variable)
-                p.setPen(QPen(QColor("#0D47A1")))  # Engineering Blue
+                p.setPen(QPen(QColor("#0D47A1")))
                 p.setFont(font_tag)
                 p.drawText(b_rect.adjusted(0, 5, -10, 0), Qt.AlignmentFlag.AlignRight, f"[{block['tag']}]")
-
-                # Condition
                 p.setPen(QPen(QColor("#444")))
                 p.setFont(font_detail)
                 desc_rect = QRect(b_rect.x() + 10, b_rect.y() + 25, b_rect.width() - 20, 45)
@@ -1021,18 +1155,12 @@ class FSMControllerPage(QWidget):
     def __init__(self):
         super().__init__()
         layout = QVBoxLayout(self)
-
-        # --- 控制面板: 信号生成与状态切换 ---
         ctrl_grp = QGroupBox("信号接收器与状态跳转定义")
         ctrl_grp.setStyleSheet(
             "QGroupBox{font-weight:bold; border:1px solid #aaa; margin-top:10px;} QGroupBox::title{subcontrol-origin:margin; left:10px;}")
         h_layout = QHBoxLayout(ctrl_grp)
-
-        # 1. 变量控制滑块
         self.sliders = {}
-        # 定义: key, label, max_val, default_val
         controls = [("temp", "温度 Temp (°C)", 100, 15), ("rpm", "转速 RPM", 120, 0), ("flow", "流量 Flow", 100, 0)]
-
         for key, label, r_max, val in controls:
             v_layout = QVBoxLayout()
             lbl = QLabel(f"{label}: {val}")
@@ -1044,8 +1172,6 @@ class FSMControllerPage(QWidget):
             v_layout.addWidget(sl)
             h_layout.addLayout(v_layout)
             self.sliders[key] = sl
-
-        # 2. 状态切换按钮
         v_state = QVBoxLayout()
         v_state.addWidget(QLabel("当前激活状态:"))
         self.btn_idle = QPushButton("空转 (IDLE)")
@@ -1055,27 +1181,17 @@ class FSMControllerPage(QWidget):
         self.btn_run.setCheckable(True)
         self.btn_fault = QPushButton("故障 (FAULT)")
         self.btn_fault.setCheckable(True)
-
         self.btns = [self.btn_idle, self.btn_run, self.btn_fault]
         for b in self.btns:
             b.clicked.connect(lambda c, btn=b: self.switch_state(btn))
             v_state.addWidget(b)
-
         h_layout.addLayout(v_state)
         layout.addWidget(ctrl_grp)
-
-        # --- 可视化组件 ---
-
         self.visualizer = FSMVisualizer()
         layout.addWidget(self.visualizer, stretch=1)
-
-        # --- 底部说明 ---
-        desc = QLabel(
-            "状态流：点击逻辑块可编辑其条件。当条件满足时，当前激活状态内的逻辑块将高亮显示。")
+        desc = QLabel("状态流：点击逻辑块可编辑其条件。当条件满足时，当前激活状态内的逻辑块将高亮显示。")
         desc.setStyleSheet("color:#666; font-style:italic;")
         layout.addWidget(desc)
-
-        # 初始化视图
         self.switch_state(self.btn_idle)
 
     def on_slider_change(self, key, val, lbl_widget, label_text):
@@ -1085,38 +1201,32 @@ class FSMControllerPage(QWidget):
     def switch_state(self, btn):
         for b in self.btns: b.setChecked(False)
         btn.setChecked(True)
-
-        # 预设值演示
         if "空转" in btn.text():
             self.sliders["temp"].setValue(15)
             self.sliders["rpm"].setValue(0)
             self.sliders["flow"].setValue(0)
         elif "运行" in btn.text():
-            self.sliders["temp"].setValue(45)  # 命中 T_Monitor
-            self.sliders["rpm"].setValue(60)  # 命中 N_Range
+            self.sliders["temp"].setValue(45)
+            self.sliders["rpm"].setValue(60)
             self.sliders["flow"].setValue(50)
         elif "故障" in btn.text():
             self.sliders["temp"].setValue(95)
-
         self.update_viz()
 
     def update_viz(self):
         t = self.sliders["temp"].value()
         r = self.sliders["rpm"].value()
         f = self.sliders["flow"].value()
-
-        # 获取当前激活的按钮文本并映射到内部状态键
         s = "IDLE"
         if self.btn_run.isChecked():
             s = "RUNNING"
         elif self.btn_fault.isChecked():
             s = "FAULT"
-
         self.visualizer.update_signals(t, r, f, s)
 
 
 # ============================================================================
-# 主窗口整合
+# 主窗口整合 (增加 WebSocket 路由逻辑)
 # ============================================================================
 class FullTrackingModule(QWidget):
     def __init__(self):
@@ -1155,12 +1265,79 @@ class FullTrackingModule(QWidget):
 
         layout.addWidget(self.tabs)
 
+        if RealtimeDataWorker:
+            self.ws_worker = RealtimeDataWorker("ws://localhost:8080/ws")
+            # [Fix] on_ws_data is now a proper method
+            self.ws_worker.data_received.connect(self.on_ws_data)
+            self.ws_worker.start()
+        else:
+            self.ws_worker = None
+
+    def on_ws_data(self, data):
+        """
+        核心分发逻辑 (Router) + 自动上传 Milvus
+        """
+        msg_type = data.get("type", "realtime")
+
+        # 情况 A: 实时高频数据
+        if msg_type == "realtime":
+            # 1. 提取基础信号
+            temp = data.get("temp", 0.0)
+            flow = data.get("flow", 0.0)
+            rpm = data.get("rpm", 0.0)  # 如果 Go 端还没发 rpm，这里默认为 0
+            aging = data.get("aging_factor", 0.0)
+            device_code = data.get("device_code", "R-101")
+
+            # 2. UI 更新 (保持原有逻辑)
+            self.page1.ingest_data(temp)
+            self.page2.update_realtime_curve(temp)
+
+            # === 👇👇👇 [新增] 核心上传逻辑 👇👇👇 ===
+
+            # 3. 简单的状态判定逻辑 (模拟 FSM)
+            current_state = "IDLE"
+            if temp > 90:
+                current_state = "FAULT"
+            elif flow > 10:  # 假设流量大于 10 就算运行
+                current_state = "RUNNING"
+            elif temp > 40:
+                current_state = "HEATING"
+
+            # 4. 调用 API 上传到 Go -> Milvus
+            # 注意：api_client 是由 main.py 注入的
+            if hasattr(self, 'api_client') and self.api_client:
+                signal_payload = {
+                    "temp": float(temp),
+                    "flow": float(flow),
+                    "rpm": float(rpm)
+                }
+
+                # 为了避免阻塞 UI，最好用 QTimer 异步发送，或者直接发送(如果网络够快)
+                # 这里直接发送演示：
+                try:
+                    # 采样上传：并不是每一帧都传，比如每秒传一次，避免数据库爆炸
+                    # 这里简单起见，每次都传
+                    self.api_client.upload_signal_state(device_code, signal_payload, current_state)
+                except Exception as e:
+                    print(f"上传异常: {e}")
+
+        # 情况 B: 统计切片数据
+        elif msg_type == "slice":
+            self.page2.on_slice_received(data)
+
+        # 情况 C: 报警图片
+        elif msg_type == "alarm_image":
+            print(f"收到报警图片: {data.get('image_url')}")
+
+    def closeEvent(self, event):
+        if self.ws_worker:
+            self.ws_worker.stop()
+        super().closeEvent(event)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     win = FullTrackingModule()
-    # 调大窗口尺寸以容纳 FSM 图
     win.resize(1100, 800)
-    win.setWindowTitle("生产过程状态追踪系统")
     win.show()
     sys.exit(app.exec())

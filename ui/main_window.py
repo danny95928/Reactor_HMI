@@ -154,7 +154,7 @@ class MainWindow(QMainWindow):
         lbl_user.setObjectName("HeaderUser")
         header_layout.addWidget(lbl_user)
 
-        btn_exit = QPushButton(" 退出系统 ")
+        btn_exit = QPushButton(" 退出 ")
         btn_exit.setCursor(Qt.CursorShape.PointingHandCursor)
         btn_exit.setStyleSheet("""
             QPushButton { background: transparent; color: #d32f2f; border: 1px solid #d32f2f; padding: 5px 15px; border-radius: 4px; font-weight: bold; }

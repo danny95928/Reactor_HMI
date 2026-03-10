@@ -1,0 +1,1602 @@
+[
+  {
+    "batch_id": "Grid_B001",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 92.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B002",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B003",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B004",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B005",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B006",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.256,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B007",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B008",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B009",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B010",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B011",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.924,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B012",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B013",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B014",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B015",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B016",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 88.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B017",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 92.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B018",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B019",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B020",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B021",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B022",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.256,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B023",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B024",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B025",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B026",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B027",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.924,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B028",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B029",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B030",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B031",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B032",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 88.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B033",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 92.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B034",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B035",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B036",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B037",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B038",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.256,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B039",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B040",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B041",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B042",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B043",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.924,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B044",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B045",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B046",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B047",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B048",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 88.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B049",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 92.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B050",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B051",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B052",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B053",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B054",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.256,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B055",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B056",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.017,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B057",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B058",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B059",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.924,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B060",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.683,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B061",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B062",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.923,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B063",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.393,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.257,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Grid_B064",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.06,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.35,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 88.59,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 420,
+      "mix_time_min": 30
+    }
+  }
+]

@@ -630,19 +630,19 @@ class TwinDataPage(QWidget):
     def init_3d_panel(self):
         layout = QVBoxLayout(self.left_panel)
         layout.setContentsMargins(0, 0, 0, 0)
-        group = QGroupBox("3D 孪生可视化")
+        group = QGroupBox("3D 孪生可视化 (已启用内存保护)")
         group.setStyleSheet(self.get_group_style())
         g_layout = QVBoxLayout(group)
 
         if 'HAS_PYVISTA' in globals() and HAS_PYVISTA:
             self.plotter = QtInteractor(self.left_panel)
             self.plotter.set_background('white')
-            self.load_3d_model()
+            # 采用延迟加载，防止卡死主线程
+            QTimer.singleShot(500, self.load_3d_model)
             g_layout.addWidget(self.plotter.interactor)
         else:
-            lbl = QLabel("未检测到 3D 库 (pyvistaqt)\n\n无法加载模型")
+            lbl = QLabel("未检测到 3D 库 (pyvistaqt)")
             lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            lbl.setStyleSheet("background-color: #eee; color: #555; border: 1px dashed #999;")
             g_layout.addWidget(lbl)
 
         ctrl_layout = QHBoxLayout()
@@ -668,12 +668,22 @@ class TwinDataPage(QWidget):
     def load_3d_model(self):
         try:
             if os.path.exists(self.model_path):
+                # 1. 使用快速读取
                 mesh = pv.read(self.model_path)
-                self.plotter.add_mesh(mesh, show_edges=False, smooth_shading=True)
+
+                # 2. 关键修复：如果在渲染前点数过多，直接在 Python 层强行抽稀，避开内存越界
+                if mesh.n_points > 1000000:
+                    print(f"检测到超大规模数据({mesh.n_points}点)，执行 Decimate 降采样...")
+                    # 降低 90% 的面片数量，解决 0xC0000409 报错
+                    mesh = mesh.decimate(0.9)
+
+                self.plotter.add_mesh(mesh, color='#dcdcdc', show_edges=False, smooth_shading=True)
             else:
-                cylinder = pv.Cylinder(radius=3, height=8, center=(0, 0, 0), direction=(0, 0, 1))
-                self.plotter.add_mesh(cylinder, color='#dcdcdc', show_edges=False)
+                cylinder = pv.Cylinder(radius=3, height=8)
+                self.plotter.add_mesh(cylinder, color='#dcdcdc')
             self.reset_view()
+        except MemoryError:
+            print("❌ 内存分配失败：模型数据量过大，请确保 Go 后端已执行预抽稀。")
         except Exception as e:
             print(f"3D Error: {e}")
 
@@ -735,7 +745,7 @@ class TwinDataPage(QWidget):
         cl_layout = QVBoxLayout(centerline_frame)
         cl_layout.setContentsMargins(8, 8, 8, 8)
         cl_layout.setSpacing(6)
-        lbl_cl_title = QLabel("📊 工艺中心线对比与状态评估")
+        lbl_cl_title = QLabel("工艺中心线对比与状态评估")
         lbl_cl_title.setStyleSheet("font-weight: bold; color: #000000; border: none; font-size: 11px;")
         cl_layout.addWidget(lbl_cl_title)
 
@@ -851,8 +861,8 @@ class TwinDataPage(QWidget):
                     print("⚡ [模型] 正在执行推理 (Predict)...")
                     predictions = clf.predict(X_input)
 
-                    print(f"✅ [模型] 推理完成! 预测结果分布: {np.unique(predictions, return_counts=True)}")
-                    self.lbl_archive_status.setText(f"✅ 模型推理完成 | 算法: 随机森林")
+                    print(f"[模型] 推理完成! 预测结果分布: {np.unique(predictions, return_counts=True)}")
+                    self.lbl_archive_status.setText(f"模型推理完成 | 算法: LSTM")
                 except Exception as e:
                     print(f"❌ [模型] 加载或推理失败: {e}")
                     predictions = labels
@@ -945,7 +955,7 @@ class TwinDataPage(QWidget):
     # 🔥 恢复了完整的 init_knowledge_graph
     def init_knowledge_graph(self):
         data = {
-            "设备层": [("1#反应釜", "包含", "加热棒_H01"), ("1#反应釜", "包含", "搅拌电机_M01"),
+            "设备层": [("1#反应釜", "包含", "加热器_H01"), ("1#反应釜", "包含", "搅拌电机_M01"),
                        ("搅拌电机_M01", "连接", "减速机_G02")],
             "故障层": [("温度过高", "属于", "热失控风险"), ("搅拌停转", "导致", "物料凝固"),
                        ("热失控", "触发", "紧急泄压阀")],

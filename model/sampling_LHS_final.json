@@ -1,0 +1,952 @@
+[
+  {
+    "batch_id": "LHS_B001",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.172
+      },
+      "BTAC": {
+        "mass_ratio": 2.945
+      },
+      "Water": {
+        "mass_ratio": 90.883
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.1,
+      "stir_speed_rpm": 393,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B002",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.119
+      },
+      "BTAC": {
+        "mass_ratio": 1.373
+      },
+      "Water": {
+        "mass_ratio": 92.508
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.8,
+      "stir_speed_rpm": 391,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B003",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.385
+      },
+      "BTAC": {
+        "mass_ratio": 3.328
+      },
+      "Water": {
+        "mass_ratio": 89.287
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.2,
+      "stir_speed_rpm": 382,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B004",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.945
+      },
+      "BTAC": {
+        "mass_ratio": 1.459
+      },
+      "Water": {
+        "mass_ratio": 90.596
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.3,
+      "stir_speed_rpm": 419,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B005",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.727
+      },
+      "BTAC": {
+        "mass_ratio": 2.129
+      },
+      "Water": {
+        "mass_ratio": 91.144
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.8,
+      "stir_speed_rpm": 396,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B006",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.917
+      },
+      "BTAC": {
+        "mass_ratio": 2.905
+      },
+      "Water": {
+        "mass_ratio": 89.178
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.1,
+      "stir_speed_rpm": 399,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B007",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.908
+      },
+      "BTAC": {
+        "mass_ratio": 1.786
+      },
+      "Water": {
+        "mass_ratio": 91.306
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.3,
+      "stir_speed_rpm": 413,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B008",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.56
+      },
+      "BTAC": {
+        "mass_ratio": 2.087
+      },
+      "Water": {
+        "mass_ratio": 91.353
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.9,
+      "stir_speed_rpm": 408,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B009",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.623
+      },
+      "BTAC": {
+        "mass_ratio": 2.201
+      },
+      "Water": {
+        "mass_ratio": 90.176
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.4,
+      "stir_speed_rpm": 409,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B010",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.363
+      },
+      "BTAC": {
+        "mass_ratio": 2.414
+      },
+      "Water": {
+        "mass_ratio": 90.223
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.8,
+      "stir_speed_rpm": 411,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B011",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.671
+      },
+      "BTAC": {
+        "mass_ratio": 2.826
+      },
+      "Water": {
+        "mass_ratio": 90.503
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.9,
+      "stir_speed_rpm": 391,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B012",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.332
+      },
+      "BTAC": {
+        "mass_ratio": 2.278
+      },
+      "Water": {
+        "mass_ratio": 90.39
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.1,
+      "stir_speed_rpm": 395,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B013",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.832
+      },
+      "BTAC": {
+        "mass_ratio": 2.655
+      },
+      "Water": {
+        "mass_ratio": 90.513
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.1,
+      "stir_speed_rpm": 415,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B014",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.398
+      },
+      "BTAC": {
+        "mass_ratio": 2.175
+      },
+      "Water": {
+        "mass_ratio": 91.427
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.7,
+      "stir_speed_rpm": 400,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B015",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.14
+      },
+      "BTAC": {
+        "mass_ratio": 2.979
+      },
+      "Water": {
+        "mass_ratio": 89.881
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.1,
+      "stir_speed_rpm": 407,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B016",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.183
+      },
+      "BTAC": {
+        "mass_ratio": 2.355
+      },
+      "Water": {
+        "mass_ratio": 91.462
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.8,
+      "stir_speed_rpm": 401,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B017",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.476
+      },
+      "BTAC": {
+        "mass_ratio": 1.699
+      },
+      "Water": {
+        "mass_ratio": 90.825
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69,
+      "stir_speed_rpm": 402,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B018",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.119
+      },
+      "BTAC": {
+        "mass_ratio": 3.226
+      },
+      "Water": {
+        "mass_ratio": 89.655
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.9,
+      "stir_speed_rpm": 404,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B019",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.244
+      },
+      "BTAC": {
+        "mass_ratio": 3.237
+      },
+      "Water": {
+        "mass_ratio": 89.519
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.7,
+      "stir_speed_rpm": 383,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B020",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.032
+      },
+      "BTAC": {
+        "mass_ratio": 3.16
+      },
+      "Water": {
+        "mass_ratio": 89.808
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.5,
+      "stir_speed_rpm": 398,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B021",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.488
+      },
+      "BTAC": {
+        "mass_ratio": 1.949
+      },
+      "Water": {
+        "mass_ratio": 91.563
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.5,
+      "stir_speed_rpm": 384,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B022",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.974
+      },
+      "BTAC": {
+        "mass_ratio": 2.997
+      },
+      "Water": {
+        "mass_ratio": 90.029
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.5,
+      "stir_speed_rpm": 384,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B023",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.371
+      },
+      "BTAC": {
+        "mass_ratio": 2.544
+      },
+      "Water": {
+        "mass_ratio": 91.085
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.5,
+      "stir_speed_rpm": 408,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B024",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.502
+      },
+      "BTAC": {
+        "mass_ratio": 2.01
+      },
+      "Water": {
+        "mass_ratio": 91.488
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.6,
+      "stir_speed_rpm": 381,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B025",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.559
+      },
+      "BTAC": {
+        "mass_ratio": 1.48
+      },
+      "Water": {
+        "mass_ratio": 90.961
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.7,
+      "stir_speed_rpm": 416,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B026",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.224
+      },
+      "BTAC": {
+        "mass_ratio": 1.865
+      },
+      "Water": {
+        "mass_ratio": 91.911
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.5,
+      "stir_speed_rpm": 399,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B027",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.03
+      },
+      "BTAC": {
+        "mass_ratio": 2.568
+      },
+      "Water": {
+        "mass_ratio": 89.402
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.2,
+      "stir_speed_rpm": 380,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B028",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.899
+      },
+      "BTAC": {
+        "mass_ratio": 1.971
+      },
+      "Water": {
+        "mass_ratio": 90.13
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.7,
+      "stir_speed_rpm": 412,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B029",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.066
+      },
+      "BTAC": {
+        "mass_ratio": 2.764
+      },
+      "Water": {
+        "mass_ratio": 90.17
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.3,
+      "stir_speed_rpm": 386,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B030",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.44
+      },
+      "BTAC": {
+        "mass_ratio": 2.494
+      },
+      "Water": {
+        "mass_ratio": 90.066
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.4,
+      "stir_speed_rpm": 404,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B031",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.805
+      },
+      "BTAC": {
+        "mass_ratio": 2.837
+      },
+      "Water": {
+        "mass_ratio": 90.358
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.7,
+      "stir_speed_rpm": 418,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B032",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.768
+      },
+      "BTAC": {
+        "mass_ratio": 1.526
+      },
+      "Water": {
+        "mass_ratio": 91.706
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.4,
+      "stir_speed_rpm": 414,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B033",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.322
+      },
+      "BTAC": {
+        "mass_ratio": 1.629
+      },
+      "Water": {
+        "mass_ratio": 92.049
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.2,
+      "stir_speed_rpm": 385,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B034",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.62
+      },
+      "BTAC": {
+        "mass_ratio": 2.6
+      },
+      "Water": {
+        "mass_ratio": 90.78
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.9,
+      "stir_speed_rpm": 387,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B035",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.073
+      },
+      "BTAC": {
+        "mass_ratio": 3.096
+      },
+      "Water": {
+        "mass_ratio": 90.831
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.7,
+      "stir_speed_rpm": 406,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B036",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.841
+      },
+      "BTAC": {
+        "mass_ratio": 2.043
+      },
+      "Water": {
+        "mass_ratio": 90.116
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71,
+      "stir_speed_rpm": 419,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B037",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.264
+      },
+      "BTAC": {
+        "mass_ratio": 3.141
+      },
+      "Water": {
+        "mass_ratio": 90.595
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.3,
+      "stir_speed_rpm": 393,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B038",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.754
+      },
+      "BTAC": {
+        "mass_ratio": 2.435
+      },
+      "Water": {
+        "mass_ratio": 89.811
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.6,
+      "stir_speed_rpm": 410,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B039",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.701
+      },
+      "BTAC": {
+        "mass_ratio": 1.669
+      },
+      "Water": {
+        "mass_ratio": 90.63
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.8,
+      "stir_speed_rpm": 412,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B040",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.583
+      },
+      "BTAC": {
+        "mass_ratio": 1.728
+      },
+      "Water": {
+        "mass_ratio": 91.689
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.5,
+      "stir_speed_rpm": 406,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B041",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.796
+      },
+      "BTAC": {
+        "mass_ratio": 1.879
+      },
+      "Water": {
+        "mass_ratio": 90.325
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.3,
+      "stir_speed_rpm": 389,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B042",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.505
+      },
+      "BTAC": {
+        "mass_ratio": 3.033
+      },
+      "Water": {
+        "mass_ratio": 89.462
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.5,
+      "stir_speed_rpm": 388,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B043",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.683
+      },
+      "BTAC": {
+        "mass_ratio": 1.557
+      },
+      "Water": {
+        "mass_ratio": 90.76
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.7,
+      "stir_speed_rpm": 403,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B044",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.288
+      },
+      "BTAC": {
+        "mass_ratio": 2.251
+      },
+      "Water": {
+        "mass_ratio": 90.461
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.5,
+      "stir_speed_rpm": 417,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B045",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.012
+      },
+      "BTAC": {
+        "mass_ratio": 1.803
+      },
+      "Water": {
+        "mass_ratio": 90.185
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.2,
+      "stir_speed_rpm": 389,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B046",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.988
+      },
+      "BTAC": {
+        "mass_ratio": 1.423
+      },
+      "Water": {
+        "mass_ratio": 91.589
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.9,
+      "stir_speed_rpm": 394,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B047",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.867
+      },
+      "BTAC": {
+        "mass_ratio": 2.727
+      },
+      "Water": {
+        "mass_ratio": 90.406
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.2,
+      "stir_speed_rpm": 395,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B048",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.584
+      },
+      "BTAC": {
+        "mass_ratio": 2.32
+      },
+      "Water": {
+        "mass_ratio": 90.096
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70,
+      "stir_speed_rpm": 397,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B049",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.205
+      },
+      "BTAC": {
+        "mass_ratio": 3.295
+      },
+      "Water": {
+        "mass_ratio": 89.5
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.2,
+      "stir_speed_rpm": 390,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "LHS_B050",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.448
+      },
+      "BTAC": {
+        "mass_ratio": 2.698
+      },
+      "Water": {
+        "mass_ratio": 90.854
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70,
+      "stir_speed_rpm": 416,
+      "mix_time_min": 30
+    }
+  }
+]

@@ -1,0 +1,1252 @@
+[
+  {
+    "batch_id": "Random_B001",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.191,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.76,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.049,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.2,
+      "stir_speed_rpm": 397,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B002",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.559,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.53,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.911,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.6,
+      "stir_speed_rpm": 388,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B003",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.339,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.37,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.291,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.2,
+      "stir_speed_rpm": 397,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B004",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.924,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.345,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.731,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.5,
+      "stir_speed_rpm": 414,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B005",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.599,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.873,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.528,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.2,
+      "stir_speed_rpm": 393,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B006",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.239,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.466,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 92.295,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.5,
+      "stir_speed_rpm": 390,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B007",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.613,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.628,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.759,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.6,
+      "stir_speed_rpm": 389,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B008",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.036,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.024,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 88.94,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.4,
+      "stir_speed_rpm": 391,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B009",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.387,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.681,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.932,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.6,
+      "stir_speed_rpm": 416,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B010",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.351,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.258,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.391,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.8,
+      "stir_speed_rpm": 407,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B011",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.296,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.132,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.572,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.9,
+      "stir_speed_rpm": 409,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B012",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.414,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.469,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 92.117,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.6,
+      "stir_speed_rpm": 390,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B013",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.617,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.584,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.799,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.8,
+      "stir_speed_rpm": 394,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B014",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.515,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.554,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.931,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70,
+      "stir_speed_rpm": 386,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B015",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.732,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.565,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.703,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.6,
+      "stir_speed_rpm": 391,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B016",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 8.046,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.821,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.133,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.7,
+      "stir_speed_rpm": 413,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B017",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.441,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.981,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.578,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.2,
+      "stir_speed_rpm": 411,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B018",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.623,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.942,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.435,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.4,
+      "stir_speed_rpm": 389,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B019",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.753,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.475,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.772,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69,
+      "stir_speed_rpm": 401,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B020",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.9,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.766,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.334,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.3,
+      "stir_speed_rpm": 418,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B021",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.095,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.79,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.115,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.6,
+      "stir_speed_rpm": 389,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B022",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.173,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.304,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.523,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.2,
+      "stir_speed_rpm": 408,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B023",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.494,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.068,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.438,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.6,
+      "stir_speed_rpm": 405,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B024",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.79,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.727,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.483,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.9,
+      "stir_speed_rpm": 382,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B025",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.147,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.309,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.544,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.1,
+      "stir_speed_rpm": 404,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B026",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.651,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.155,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.194,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.8,
+      "stir_speed_rpm": 387,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B027",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.063,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.545,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 92.392,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70,
+      "stir_speed_rpm": 410,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B028",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.384,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.824,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.792,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.8,
+      "stir_speed_rpm": 409,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B029",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.546,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.655,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.799,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.8,
+      "stir_speed_rpm": 409,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B030",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.113,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.076,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.811,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.9,
+      "stir_speed_rpm": 381,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B031",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.924,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.472,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.604,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.7,
+      "stir_speed_rpm": 405,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B032",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.044,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.183,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.773,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.8,
+      "stir_speed_rpm": 407,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B033",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.18,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.668,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.152,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.2,
+      "stir_speed_rpm": 407,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B034",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.691,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.691,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.618,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.1,
+      "stir_speed_rpm": 403,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B035",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.758,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.329,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.913,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.7,
+      "stir_speed_rpm": 387,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B036",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.695,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.147,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.158,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.8,
+      "stir_speed_rpm": 404,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B037",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.338,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.678,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.984,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.1,
+      "stir_speed_rpm": 403,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B038",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.362,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.861,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.777,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.6,
+      "stir_speed_rpm": 407,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B039",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.611,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.89,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.499,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.9,
+      "stir_speed_rpm": 387,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B040",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.923,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.971,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.106,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.3,
+      "stir_speed_rpm": 418,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B041",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.691,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.381,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.928,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.5,
+      "stir_speed_rpm": 412,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B042",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.165,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.002,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.833,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.3,
+      "stir_speed_rpm": 404,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B043",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.177,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.53,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.293,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.9,
+      "stir_speed_rpm": 391,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B044",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.832,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 3.112,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 89.056,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.3,
+      "stir_speed_rpm": 391,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B045",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.97,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.447,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.583,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 69.8,
+      "stir_speed_rpm": 385,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B046",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.818,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.819,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.363,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71,
+      "stir_speed_rpm": 409,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B047",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.11,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.674,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 91.216,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 70.8,
+      "stir_speed_rpm": 391,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B048",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 6.225,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.431,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 92.344,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 72,
+      "stir_speed_rpm": 400,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B049",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.224,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 2.464,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.312,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 71.8,
+      "stir_speed_rpm": 388,
+      "mix_time_min": 30
+    }
+  },
+  {
+    "batch_id": "Random_B050",
+    "components": {
+      "Fatty_Alcohol": {
+        "mass_ratio": 7.721,
+        "unit": "%",
+        "role": "Main_Substrate"
+      },
+      "BTAC": {
+        "mass_ratio": 1.443,
+        "unit": "%",
+        "role": "Surfactant"
+      },
+      "Water": {
+        "mass_ratio": 90.836,
+        "unit": "%",
+        "role": "Solvent"
+      }
+    },
+    "process_steps": {
+      "heat_temp_c": 68.5,
+      "stir_speed_rpm": 411,
+      "mix_time_min": 30
+    }
+  }
+]
