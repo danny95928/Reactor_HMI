@@ -1,5 +1,4 @@
 # 1# 反应釜数字孪生智能监控系统 / 1# Reactor Digital Twin Intelligent Monitoring System
-
 [![Language](https://img.shields.io/badge/Language-Python%203.10+-blue.svg)](https://www.python.org/)
 [![Framework](https://img.shields.io/badge/Framework-PyQt6-green.svg)](https://www.riverbankcomputing.com/software/pyqt/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/danny95928/Reactor_HMI)
@@ -37,4 +36,39 @@ Reactor_HMI/
 │       ├── page_twin.py      # 孪生数据管理页 (3D & 知识图谱)
 │       └── page_decision.py  # 运维决策支持页
 └── README.md            # 项目说明文档 (Project Documentation)
+```
+🛠️ 技术栈 / Tech Stack
 
+GUI Framework: PyQt6 (Professional Business Style)
+Simulation: MATLAB / Simulink Engine (Co-simulation)
+Database: Neo4j (Graph Database for asset relations)
+Threading: QThread (Used for real-time latency detection)
+
+
+🏁 快速开始 / Quick Start
+
+1\. 安装依赖 / Install Dependencies
+请在终端（CMD 或 PowerShell）中执行以下命令，安装项目运行所需的库：
+```
+pip install PyQt6
+pip install numpy pandas
+```
+
+
+2\. 配置环境 / Environment Setup
+Python: 确保本地已安装 Python 3.10 或更高版本。
+Neo4j: 如需启用数据管理功能，请确保本地或远程 Neo4j 服务已启动。
+MATLAB: 确保系统路径中已包含 MATLAB，以便 Python 调用 Simulink 仿真引擎。
+
+3\. 运行命令 / Run Application
+
+在项目根目录下（即 main.py 所在的目录），运行以下命令启动系统：
+```
+python main.py
+```
+
+
+🛡️ 开发者与版权 / Developer \& Copyright
+Author: danny95928
+Project: Thesis Project - Reactor Digital Twin System
+Copyright © 2026 danny95928. All Rights Reserved.
