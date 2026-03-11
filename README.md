@@ -1,4 +1,4 @@
-# 1# 反应釜数字孪生智能监控系统 / 1# Reactor Digital Twin Intelligent Monitoring System
+# 反应釜数字孪生智能监控系统 / Reactor Digital Twin Intelligent Monitoring System
 [![Language](https://img.shields.io/badge/Language-Python%203.10+-blue.svg)](https://www.python.org/)
 [![Framework](https://img.shields.io/badge/Framework-PyQt6-green.svg)](https://www.riverbankcomputing.com/software/pyqt/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/danny95928/Reactor_HMI)
